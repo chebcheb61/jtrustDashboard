@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from pusher import Pusher
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
+from sqlalchemy import or_
 pymysql.install_as_MySQLdb()
   
 app = Flask(__name__)
@@ -25,7 +26,7 @@ def Index():
     q = request.args.get('q')
     all_data = Data.query.all()
     if q: 
-        all_data = Data.query.filter(Data.accNum == q).all()
+        all_data = Data.query.filter(or_(Data.cusSeg.ilike(q), Data.rmId.ilike(q), Data.cif.ilike(q), Data.accNum.ilike(q), Data.cusName.ilike(q), Data.minOtt.ilike(q), Data.comPerOtt.ilike(q),Data.cabFee.ilike(q), Data.minItt.ilike(q),Data.comPerItt.ilike(q),Data.maxItt.ilike(q))).all()
 
     return render_template("index.html", employees = all_data)
         
