@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pusher import Pusher
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
+import pymysql
+pymysql.install_as_MySQLdb()
     
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -24,7 +27,7 @@ ROWS_PER_PAGE = 5
 def Index():
     q = request.args.get('q')
     if q: 
-        all_data = Data.query.filter(Data.accNum == q or Data.cusName == q).paginate(page=1, per_page=ROWS_PER_PAGE)
+        all_data = Data.query.filter(or_(Data.cusSeg.ilike(q), Data.rmId.ilike(q), Data.cif.ilike(q), Data.accNum.ilike(q), Data.cusName.ilike(q), Data.minOtt.ilike(q), Data.comPerOtt.ilike(q),Data.cabFee.ilike(q), Data.minItt.ilike(q),Data.comPerItt.ilike(q),Data.maxItt.ilike(q))).all()
         
     else:
         page = request.args.get('page', 1, type=int)
