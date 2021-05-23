@@ -169,13 +169,16 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fa fa-table"></i> Customer Informations
-              <div class="float-right">
+              <div class="float-center">
                 <form action ="{{url_for('Index')}}" method="GET">
                   <input type="search" name="q">
+                  <input type="number" name="a">
                   <button type="submit">search</button>
                   <button type="reset">Clear</button>
                </form>
               </div>
+              <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">New Customer</button> </h2>
             </div>
             <div class="card-body">  
               <div class="table-responsive">
@@ -198,7 +201,7 @@
                   </tr>
 
 
-                 {% for row in employees %}
+                 {% for row in employees.items %}
                   <tr>
                       <td>{{row.cusSeg}}</td>
                       <td>{{row.rmId}}</td>
@@ -221,14 +224,357 @@
 
                   </tr>
 
+                  <div id="modaledit{{row.accNum}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                 
+                 
+                       <div class="modal-content">
+                 
+                 
+                          <div class="modal-header">
+                 
+                 
+                             <h4 class="modal-title">Update Information</h4>
+                 
+                 
+                          </div>
+                 
+                 
+                          <div class="modal-body">
+                 
+                 
+                             <form action="{{url_for('update')}}" method="POST">
+                 
+                 
+                                <div class="form-group">
+                 
+                 
+                                   <label>Customer Segment:</label>
+                 
+                                   <input type="text" class="form-control" name="cusSeg" value="{{row.cusSeg}}">
+                 
+                 
+                                </div>
+                 
+                 
+                 
+                                <div class="form-group">
+                 
+                 
+                                   <label>RM ID:</label>
+                 
+                                   <input type="text" class="form-control" name="rmId" value="{{row.rmId}}">
+                 
+                 
+                                </div>
+                 
+                 
+                                <div class="form-group">
+                 
+                 
+                                   <label>CIF:</label>
+                 
+                                   <input type="text" class="form-control" name="cif" value="{{row.cif}}">
+                 
+                 
+                                </div>
+                 
+                                <div class="form-group">
+                 
+                 
+                                   <label>Account Number:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="accNum" value="{{row.accNum}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Customer Name:</label>
+                 
+                                   <input type="text" step=0.01 class="form-control" name="cusName" value="{{row.cusName}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Minimum OTT:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="minOtt" value="{{row.minOtt}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Comission Percentage OTT:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="comPerOtt" value="{{row.comPerOtt}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Cable Fee:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="cabFee" value="{{row.cabFee}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Minimum ITT:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="minItt" value="{{row.minItt}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Comission Percentage ITT:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="comPerItt" value="{{row.comPerItt}}">
+                 
+                 
+                                </div>
+                                <div class="form-group">
+                 
+                 
+                                   <label>Maximum ITT:</label>
+                 
+                                   <input type="number" step=0.01 class="form-control" name="maxItt" value="{{row.maxItt}}">
+                 
+                 
+                                </div>
+                 
+                 
+                                <div class="form-group">
+                 
+                 
+                                   <button class="btn btn-primary" type="submit">Update</button>
+                 
+                 
+                                </div>
+                 
+                 
+                             </form>
+                 
+                 
+                          </div>
+                 
+                 
+                          <div class="modal-footer">
+                 
+                 
+                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 
+                 
+                          </div>
+                          
+                 
+                       </div>
+      
+                 
+                    </div>
+                 
+                 </div>
+
                   {% endfor %}
-
-
+                  
               </table>
               </div>
+              <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                   <div class="modal-content">
+                      <div class="modal-header">
+             
+                         <h4 class="modal-title">Add Customer</h4>
+                      </div>
+                      <div class="modal-body">
+             
+                         <form action="{{url_for('insert')}}" method="POST">
+             
+             
+                            <div class="form-group">
+             
+                               <label>Customer Segment:</label>
+                               <input type="text" class="form-control" name="cusSeg" required="1">
+             
+             
+                            </div>
+             
+             
+                             <div class="form-group">
+             
+             
+                               <label>RM ID:</label>
+                               <input type="text" class="form-control" name="rmId" required="1">
+             
+             
+                            </div>
+             
+             
+                             <div class="form-group">
+             
+             
+                               <label>CIF:</label>
+                               <input type="text" class="form-control" name="cif" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Account Number:</label>
+                               <input type="number" step=0.01 class="form-control" name="accNum" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Customer Name:</label>
+                               <input type="text" step=0.01 class="form-control" name="cusName" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Minimum OTT:</label>
+                               <input type="number" step=0.01 class="form-control" name="minOtt" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Comission Percentage OTT:</label>
+                               <input type="number" step=0.01 class="form-control" name="comPerOtt" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Cable Fee:</label>
+                               <input type="number" step=0.01 class="form-control" name="cabFee" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Minimum ITT:</label>
+                               <input type="number" step=0.01 class="form-control" name="minItt" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Comission Percentage ITT:</label>
+                               <input type="number" step=0.01 class="form-control" name="comPerItt" required="1">
+             
+             
+                            </div>
+             
+                            <div class="form-group">
+             
+             
+                               <label>Maximum ITT:</label>
+                               <input type="number" step=0.01 class="form-control" name="maxItt" required="1">
+             
+             
+                            </div>
+             
+             
+                            <div class="form-group">
+             
+             
+                               <button class="btn btn-primary" type="submit">Add Customer</button>
+             
+             
+                            </div>
+             
+             
+                         </form>
+             
+             
+                      </div>
+             
+             
+                      <div class="modal-footer">
+             
+             
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             
+             
+                      </div>
+             
+             
+                   </div>
+             
+             
+                </div>
+             
+             
+             </div>
+
+              <!-- Pagination Links-->
+<div class="text-right">
+  <a href="{{ url_for('Index', page=employees.prev_num) }}"
+     class="btn btn-outline-dark 
+     {% if employees.page == 1 %}disabled{% endif %}">
+      &laquo;
+  </a>
+<!-- Loop through the number of pages to display a link for each-->
+{% for page_num in employees.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+<!-- Check for the active page and set the link to "Active"-->
+          {% if employees.page == page_num %}
+          <a href="{{ url_for('Index', page=page_num) }}"
+             class="btn btn-dark">
+              {{ page_num }}
+          </a>
+          {% else %}
+          <a href="{{ url_for('Index', page=page_num) }}"
+             class="btn btn-outline-dark">
+              {{ page_num }}
+          </a>
+          {% endif %}
+      {% else %}
+          ...
+      {% endif %}
+  {% endfor %}
+  <a href="{{ url_for('Index', page=employees.next_num) }}"
+     class="btn btn-outline-dark 
+     {% if employees.page == employees.pages %}disabled{% endif %}">
+      &raquo;
+  </a>
+</div>
+<p class="text-right mt-3">
+ Showing page {{ employees.page }} of {{ employees.pages }}
+</p>
+
+             
             </div>
+             
           </div>
         </div>
+        
         <footer class="sticky-footer">
           <div class="container">
             <div class="text-center">
